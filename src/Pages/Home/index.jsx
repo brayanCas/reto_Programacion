@@ -1,7 +1,72 @@
-export default function Home() {
-    return (
+import React, { useState } from 'react';
+import useFetchRestaurants from '../Home/effect';
+
+const useRestaurantData = () => {
+  const [restaurants, setRestaurants] = useState([]);
+  const [filter, setFilter] = useState('');
+  const [foodTypeFilter, setFoodTypeFilter] = useState('');
+  const [starRatingFilter, setStarRatingFilter] = useState('');
+
+  return { restaurants, filter, setFilter, setRestaurants, foodTypeFilter, setFoodTypeFilter, starRatingFilter, setStarRatingFilter };
+};
+
+const RestaurantList = () => {
+  const { restaurants, filter, setFilter, setRestaurants, foodTypeFilter, setFoodTypeFilter, starRatingFilter, setStarRatingFilter } = useRestaurantData();
+  useFetchRestaurants(setRestaurants);
+
+  return (
+    <div className="restaurant-list">
+      <input
+        className="filter-input"
+        type="text"
+        value={filter}
+        onChange={(e) => setFilter(e.target.value)}
+        placeholder="Filter restaurants..."
+      />
+      <input
+        className="filter-input"
+        type="text"
+        value={foodTypeFilter}
+        onChange={(e) => setFoodTypeFilter(e.target.value)}
+        placeholder="Filter by food type..."
+      />
+      <select
+        className="filter-select"
+        value={starRatingFilter}
+        onChange={(e) => setStarRatingFilter(e.target.value)}
+      >
+        <option value="">Filter by star rating...</option>
+        <option value="1">1 star</option>
+        <option value="2">2 stars</option>
+        <option value="3">3 stars</option>
+        <option value="4">4 stars</option>
+        <option value="5">5 stars</option>
+      </select>
+      <ul className="restaurant-ul">
+      {restaurants
+  .filter((restaurant) =>
+    restaurant.name.toLowerCase().includes(filter.toLowerCase()) &&
+    (restaurant.foodType ? restaurant.foodType.toLowerCase().includes(foodTypeFilter.toLowerCase()) : true) &&
+    (starRatingFilter === '' || restaurant.starRating === parseInt(starRatingFilter))
+  )
+  .map((restaurant) => (
+    <li key={restaurant.id} className="restaurant-li">{restaurant.name}</li>
+  ))}
+
+      </ul>
+    </div>
+  );
+};
+
+const Home = () => {
+  return (
+    <>
       <h1 className="text-3xl font-bold underline">
-        Hello Bootcamp Home!
+        Home
       </h1>
-    )
-  }
+      <RestaurantList />
+    </>
+  );
+};
+
+export default Home;
