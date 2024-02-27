@@ -18,8 +18,8 @@ const activeStyle = 'underline underline-offset-4'
                 </NavLink>
             </li>
             <li>
-                <NavLink to='/developers' className="text-gray-700 hover:text-gray-900 mr-6">
-                    Developers
+                <NavLink to='/stores' className="text-gray-700 hover:text-gray-900 mr-6">
+                Stores
                 </NavLink>
             </li>
             <li>
