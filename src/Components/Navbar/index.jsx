@@ -9,22 +9,17 @@ const activeStyle = 'underline underline-offset-4'
         <ul className="flex items-center justify-center">
             <li>
                 <NavLink to='/' className="text-gray-700 hover:text-gray-900 mr-6">
-                    Page 1
-                </NavLink>
-            </li>
-            <li>
-                <NavLink to='/' className="text-gray-700 hover:text-gray-900 mr-6">
-                    All
+                Buscar Restaturantes
                 </NavLink>
             </li>
             <li>
                 <NavLink to='/stores' className="text-gray-700 hover:text-gray-900 mr-6">
-                Stores
+                Información Restaurantes
                 </NavLink>
             </li>
             <li>
                 <NavLink to='/projects' className="text-gray-700 hover:text-gray-900 mr-6">
-                    Projects
+                Información Proyecto
                 </NavLink>
             </li>
             <li>
@@ -35,7 +30,6 @@ const activeStyle = 'underline underline-offset-4'
         </ul>
     </nav>
 </header>
-
 
 
     )

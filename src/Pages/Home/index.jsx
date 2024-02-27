@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import useFetchRestaurants from '../Home/effect';
 
 const useRestaurantData = () => {
@@ -13,6 +13,12 @@ const useRestaurantData = () => {
 const RestaurantList = () => {
   const { restaurants, filter, setFilter, setRestaurants, foodTypeFilter, setFoodTypeFilter, starRatingFilter, setStarRatingFilter } = useRestaurantData();
   useFetchRestaurants(setRestaurants);
+
+  const filteredRestaurants = restaurants.filter((restaurant) =>
+    restaurant.name.toLowerCase().includes(filter.toLowerCase()) &&
+    (restaurant.foodType ? restaurant.foodType.toLowerCase().includes(foodTypeFilter.toLowerCase()) : true) &&
+    (starRatingFilter === '' || restaurant.starRating === parseInt(starRatingFilter))
+  );
 
   return (
     <div className="restaurant-list p-4">
@@ -43,15 +49,9 @@ const RestaurantList = () => {
         <option value="5">5 stars</option>
       </select>
       <ul className="restaurant-ul">
-        {restaurants
-          .filter((restaurant) =>
-            restaurant.name.toLowerCase().includes(filter.toLowerCase()) &&
-            (restaurant.foodType ? restaurant.foodType.toLowerCase().includes(foodTypeFilter.toLowerCase()) : true) &&
-            (starRatingFilter === '' || restaurant.starRating === parseInt(starRatingFilter))
-          )
-          .map((restaurant) => (
-            <li key={restaurant.id} className="restaurant-li mb-2 p-2 bg-gray-100 rounded-md">{restaurant.name}</li>
-          ))}
+        {filteredRestaurants.map((restaurant) => (
+          <li key={restaurant.id} className="restaurant-li mb-2 p-2 bg-gray-100 rounded-md">{restaurant.name}</li>
+        ))}
       </ul>
     </div>
   );
