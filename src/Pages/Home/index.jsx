@@ -15,23 +15,23 @@ const RestaurantList = () => {
   useFetchRestaurants(setRestaurants);
 
   return (
-    <div className="restaurant-list">
+    <div className="restaurant-list p-4">
       <input
-        className="filter-input"
+        className="filter-input mb-2 px-4 py-2 rounded-md border border-gray-300 focus:outline-none focus:border-blue-500"
         type="text"
         value={filter}
         onChange={(e) => setFilter(e.target.value)}
         placeholder="Filter restaurants..."
       />
       <input
-        className="filter-input"
+        className="filter-input mb-2 px-4 py-2 rounded-md border border-gray-300 focus:outline-none focus:border-blue-500"
         type="text"
         value={foodTypeFilter}
         onChange={(e) => setFoodTypeFilter(e.target.value)}
         placeholder="Filter by food type..."
       />
       <select
-        className="filter-select"
+        className="filter-select mb-2 px-4 py-2 rounded-md border border-gray-300 focus:outline-none focus:border-blue-500"
         value={starRatingFilter}
         onChange={(e) => setStarRatingFilter(e.target.value)}
       >
@@ -43,16 +43,15 @@ const RestaurantList = () => {
         <option value="5">5 stars</option>
       </select>
       <ul className="restaurant-ul">
-      {restaurants
-  .filter((restaurant) =>
-    restaurant.name.toLowerCase().includes(filter.toLowerCase()) &&
-    (restaurant.foodType ? restaurant.foodType.toLowerCase().includes(foodTypeFilter.toLowerCase()) : true) &&
-    (starRatingFilter === '' || restaurant.starRating === parseInt(starRatingFilter))
-  )
-  .map((restaurant) => (
-    <li key={restaurant.id} className="restaurant-li">{restaurant.name}</li>
-  ))}
-
+        {restaurants
+          .filter((restaurant) =>
+            restaurant.name.toLowerCase().includes(filter.toLowerCase()) &&
+            (restaurant.foodType ? restaurant.foodType.toLowerCase().includes(foodTypeFilter.toLowerCase()) : true) &&
+            (starRatingFilter === '' || restaurant.starRating === parseInt(starRatingFilter))
+          )
+          .map((restaurant) => (
+            <li key={restaurant.id} className="restaurant-li mb-2 p-2 bg-gray-100 rounded-md">{restaurant.name}</li>
+          ))}
       </ul>
     </div>
   );
@@ -61,9 +60,7 @@ const RestaurantList = () => {
 const Home = () => {
   return (
     <>
-      <h1 className="text-3xl font-bold underline">
-        Home
-      </h1>
+      <h1 className="text-3xl font-bold underline">Home</h1>
       <RestaurantList />
     </>
   );
